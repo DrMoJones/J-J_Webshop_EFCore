@@ -2,15 +2,15 @@
 
 namespace Webshop.Domain
 {
-    public class Products
+    public class Product
     {
 
         public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string Description { get; set; }
-        public int CategoryId { get; set; }
+        public int GenreId { get; set; }
         public int Stock { get; set; }
-        public Category Category { get; set; }
+        public Genre Genre { get; set; }
     }
 }

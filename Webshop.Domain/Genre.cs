@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Webshop.Domain
 {
-    public class Category
+    public class Genre
     {
         public int Id { get; set; }
         public string GenreName { get; set; }

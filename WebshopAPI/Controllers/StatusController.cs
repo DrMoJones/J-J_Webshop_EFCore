@@ -12,48 +12,48 @@ namespace WebshopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class StatusController : ControllerBase
     {
         private readonly WebshopContext _context;
 
-        public CategoriesController(WebshopContext context)
+        public StatusController(WebshopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Categories
+        // GET: api/Status
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<Status>>> GetStatus()
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Status.ToListAsync();
         }
 
-        // GET: api/Categories/5
+        // GET: api/Status/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(int id)
+        public async Task<ActionResult<Status>> GetStatus(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var status = await _context.Status.FindAsync(id);
 
-            if (category == null)
+            if (status == null)
             {
                 return NotFound();
             }
 
-            return category;
+            return status;
         }
 
-        // PUT: api/Categories/5
+        // PUT: api/Status/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, Category category)
+        public async Task<IActionResult> PutStatus(int id, Status status)
         {
-            if (id != category.Id)
+            if (id != status.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(category).State = EntityState.Modified;
+            _context.Entry(status).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace WebshopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(id))
+                if (!StatusExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace WebshopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Categories
+        // POST: api/Status
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        public async Task<ActionResult<Status>> PostStatus(Status status)
         {
-            _context.Categories.Add(category);
+            _context.Status.Add(status);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+            return CreatedAtAction("GetStatus", new { id = status.Id }, status);
         }
 
-        // DELETE: api/Categories/5
+        // DELETE: api/Status/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Category>> DeleteCategory(int id)
+        public async Task<ActionResult<Status>> DeleteStatus(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var status = await _context.Status.FindAsync(id);
+            if (status == null)
             {
                 return NotFound();
             }
 
-            _context.Categories.Remove(category);
+            _context.Status.Remove(status);
             await _context.SaveChangesAsync();
 
-            return category;
+            return status;
         }
 
-        private bool CategoryExists(int id)
+        private bool StatusExists(int id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return _context.Status.Any(e => e.Id == id);
         }
     }
 }
