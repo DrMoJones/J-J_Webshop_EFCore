@@ -13,6 +13,24 @@
     <Compile Remove="Migrations\20200922070912_init.Designer.cs" />
     <Compile Remove="Migrations\20200922071024_init.cs" />
     <Compile Remove="Migrations\20200922071024_init.Designer.cs" />
+    <Compile Remove="Migrations\20200922103250_Namefix_picture_productversion_Version.cs" />
+    <Compile Remove="Migrations\20200922103250_Namefix_picture_productversion_Version.Designer.cs" />
+    <Compile Remove="Migrations\20200922104020_Namefix_picture_productversion_Version.cs" />
+    <Compile Remove="Migrations\20200922104020_Namefix_picture_productversion_Version.Designer.cs" />
+    <Compile Remove="Migrations\20200922104151_Namefix_picture_productversion_Version.cs" />
+    <Compile Remove="Migrations\20200922104151_Namefix_picture_productversion_Version.Designer.cs" />
+    <Compile Remove="Migrations\20200922104418_Namefix_picture_productversion_Version.cs" />
+    <Compile Remove="Migrations\20200922104418_Namefix_picture_productversion_Version.Designer.cs" />
+    <Compile Remove="Migrations\20200922110812_test.cs" />
+    <Compile Remove="Migrations\20200922110812_test.Designer.cs" />
+    <Compile Remove="Migrations\20200922111145_test.cs" />
+    <Compile Remove="Migrations\20200922111145_test.Designer.cs" />
+    <Compile Remove="Migrations\20200922111346_test.cs" />
+    <Compile Remove="Migrations\20200922111346_test.Designer.cs" />
+    <Compile Remove="Migrations\20200922111601_test.cs" />
+    <Compile Remove="Migrations\20200922111601_test.Designer.cs" />
+    <Compile Remove="Migrations\20200922110749_init.cs" />
+    <Compile Remove="Migrations\20200922110749_init.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
