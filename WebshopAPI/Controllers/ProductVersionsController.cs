@@ -12,48 +12,48 @@ namespace WebshopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductVersionsController : ControllerBase
     {
         private readonly WebshopContext _context;
 
-        public ProductsController(WebshopContext context)
+        public ProductVersionsController(WebshopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Products
+        // GET: api/ProductVersions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductVersion>>> GetProductVersions()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.ProductVersions.ToListAsync();
         }
 
-        // GET: api/Products/5
+        // GET: api/ProductVersions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<ProductVersion>> GetProductVersion(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var productVersion = await _context.ProductVersions.FindAsync(id);
 
-            if (product == null)
+            if (productVersion == null)
             {
                 return NotFound();
             }
 
-            return product;
+            return productVersion;
         }
 
-        // PUT: api/Products/5
+        // PUT: api/ProductVersions/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        public async Task<IActionResult> PutProductVersion(int id, ProductVersion productVersion)
         {
-            if (id != product.Id)
+            if (id != productVersion.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            _context.Entry(productVersion).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace WebshopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!ProductVersionExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace WebshopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Products
+        // POST: api/ProductVersions
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<ProductVersion>> PostProductVersion(ProductVersion productVersion)
         {
-            _context.Products.Add(product);
+            _context.ProductVersions.Add(productVersion);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return CreatedAtAction("GetProductVersion", new { id = productVersion.Id }, productVersion);
         }
 
-        // DELETE: api/Products/5
+        // DELETE: api/ProductVersions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Product>> DeleteProduct(int id)
+        public async Task<ActionResult<ProductVersion>> DeleteProductVersion(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            var productVersion = await _context.ProductVersions.FindAsync(id);
+            if (productVersion == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
+            _context.ProductVersions.Remove(productVersion);
             await _context.SaveChangesAsync();
 
-            return product;
+            return productVersion;
         }
 
-        private bool ProductExists(int id)
+        private bool ProductVersionExists(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            return _context.ProductVersions.Any(e => e.Id == id);
         }
     }
 }

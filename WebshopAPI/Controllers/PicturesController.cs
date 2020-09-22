@@ -12,48 +12,48 @@ namespace WebshopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class PicturesController : ControllerBase
     {
         private readonly WebshopContext _context;
 
-        public CategoriesController(WebshopContext context)
+        public PicturesController(WebshopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Categories
+        // GET: api/Pictures
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<Picture>>> GetPictures()
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Pictures.ToListAsync();
         }
 
-        // GET: api/Categories/5
+        // GET: api/Pictures/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(int id)
+        public async Task<ActionResult<Picture>> GetPicture(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var picture = await _context.Pictures.FindAsync(id);
 
-            if (category == null)
+            if (picture == null)
             {
                 return NotFound();
             }
 
-            return category;
+            return picture;
         }
 
-        // PUT: api/Categories/5
+        // PUT: api/Pictures/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, Category category)
+        public async Task<IActionResult> PutPicture(int id, Picture picture)
         {
-            if (id != category.Id)
+            if (id != picture.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(category).State = EntityState.Modified;
+            _context.Entry(picture).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace WebshopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(id))
+                if (!PictureExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace WebshopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Categories
+        // POST: api/Pictures
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        public async Task<ActionResult<Picture>> PostPicture(Picture picture)
         {
-            _context.Categories.Add(category);
+            _context.Pictures.Add(picture);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+            return CreatedAtAction("GetPicture", new { id = picture.Id }, picture);
         }
 
-        // DELETE: api/Categories/5
+        // DELETE: api/Pictures/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Category>> DeleteCategory(int id)
+        public async Task<ActionResult<Picture>> DeletePicture(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var picture = await _context.Pictures.FindAsync(id);
+            if (picture == null)
             {
                 return NotFound();
             }
 
-            _context.Categories.Remove(category);
+            _context.Pictures.Remove(picture);
             await _context.SaveChangesAsync();
 
-            return category;
+            return picture;
         }
 
-        private bool CategoryExists(int id)
+        private bool PictureExists(int id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return _context.Pictures.Any(e => e.Id == id);
         }
     }
 }

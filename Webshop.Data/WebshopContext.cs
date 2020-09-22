@@ -8,8 +8,11 @@ namespace Webshop.Data
     public class WebshopContext : DbContext
     {
 
-        public DbSet<Products> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
+        public DbSet<Edition> Editions { get; set; }
+        public DbSet<ProductVersion> ProductVersions { get; set; }
 
         public WebshopContext(DbContextOptions<WebshopContext> options)
             : base(options)

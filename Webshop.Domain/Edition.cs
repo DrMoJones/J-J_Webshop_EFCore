@@ -4,9 +4,10 @@ using System.Text;
 
 namespace Webshop.Domain
 {
-    public class Category
+    public class Edition
     {
         public int Id { get; set; }
-        public string GenreName { get; set; }
+        public string EditionType { get; set; }
+        public ProductVersion ProductVersions { get; set; }
     }
 }

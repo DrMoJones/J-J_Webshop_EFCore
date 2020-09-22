@@ -12,48 +12,48 @@ namespace WebshopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class GenresController : ControllerBase
     {
         private readonly WebshopContext _context;
 
-        public ProductsController(WebshopContext context)
+        public GenresController(WebshopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Products
+        // GET: api/Genres
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Genre>>> GetGenres()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Genres.ToListAsync();
         }
 
-        // GET: api/Products/5
+        // GET: api/Genres/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<Genre>> GetGenre(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var genre = await _context.Genres.FindAsync(id);
 
-            if (product == null)
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return product;
+            return genre;
         }
 
-        // PUT: api/Products/5
+        // PUT: api/Genres/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        public async Task<IActionResult> PutGenre(int id, Genre genre)
         {
-            if (id != product.Id)
+            if (id != genre.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            _context.Entry(genre).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace WebshopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!GenreExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace WebshopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Products
+        // POST: api/Genres
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<Genre>> PostGenre(Genre genre)
         {
-            _context.Products.Add(product);
+            _context.Genres.Add(genre);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return CreatedAtAction("GetGenre", new { id = genre.Id }, genre);
         }
 
-        // DELETE: api/Products/5
+        // DELETE: api/Genres/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Product>> DeleteProduct(int id)
+        public async Task<ActionResult<Genre>> DeleteGenre(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            var genre = await _context.Genres.FindAsync(id);
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
+            _context.Genres.Remove(genre);
             await _context.SaveChangesAsync();
 
-            return product;
+            return genre;
         }
 
-        private bool ProductExists(int id)
+        private bool GenreExists(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            return _context.Genres.Any(e => e.Id == id);
         }
     }
 }
