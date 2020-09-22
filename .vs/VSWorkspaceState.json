@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Webshop.Data",
+    "\\Webshop.Domain",
+    "\\WebshopAPI",
+    "\\WebshopAPI\\Controllers"
   ],
+  "SelectedNode": "\\Webshop.Domain",
   "PreviewInSolutionExplorer": false
 }

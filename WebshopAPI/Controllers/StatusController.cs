@@ -12,48 +12,48 @@ namespace WebshopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class StatusController : ControllerBase
     {
         private readonly WebshopContext _context;
 
-        public ProductsController(WebshopContext context)
+        public StatusController(WebshopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Products
+        // GET: api/Status
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Status>>> GetStatus()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Status.ToListAsync();
         }
 
-        // GET: api/Products/5
+        // GET: api/Status/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<Status>> GetStatus(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var status = await _context.Status.FindAsync(id);
 
-            if (product == null)
+            if (status == null)
             {
                 return NotFound();
             }
 
-            return product;
+            return status;
         }
 
-        // PUT: api/Products/5
+        // PUT: api/Status/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        public async Task<IActionResult> PutStatus(int id, Status status)
         {
-            if (id != product.Id)
+            if (id != status.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            _context.Entry(status).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace WebshopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
+                if (!StatusExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace WebshopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Products
+        // POST: api/Status
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<Status>> PostStatus(Status status)
         {
-            _context.Products.Add(product);
+            _context.Status.Add(status);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return CreatedAtAction("GetStatus", new { id = status.Id }, status);
         }
 
-        // DELETE: api/Products/5
+        // DELETE: api/Status/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Product>> DeleteProduct(int id)
+        public async Task<ActionResult<Status>> DeleteStatus(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            var status = await _context.Status.FindAsync(id);
+            if (status == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
+            _context.Status.Remove(status);
             await _context.SaveChangesAsync();
 
-            return product;
+            return status;
         }
 
-        private bool ProductExists(int id)
+        private bool StatusExists(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            return _context.Status.Any(e => e.Id == id);
         }
     }
 }
