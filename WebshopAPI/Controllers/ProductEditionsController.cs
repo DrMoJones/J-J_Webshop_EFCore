@@ -12,48 +12,48 @@ namespace WebshopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductVersionsController : ControllerBase
+    public class ProductEditionsController : ControllerBase
     {
         private readonly WebshopContext _context;
 
-        public ProductVersionsController(WebshopContext context)
+        public ProductEditionsController(WebshopContext context)
         {
             _context = context;
         }
 
-        // GET: api/ProductVersions
+        // GET: api/ProductEditions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductVersion>>> GetProductVersions()
+        public async Task<ActionResult<IEnumerable<ProductEdition>>> GetProductEditions()
         {
-            return await _context.ProductVersions.ToListAsync();
+            return await _context.ProductEditions.ToListAsync();
         }
 
-        // GET: api/ProductVersions/5
+        // GET: api/ProductEditions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductVersion>> GetProductVersion(int id)
+        public async Task<ActionResult<ProductEdition>> GetProductEdition(int id)
         {
-            var productVersion = await _context.ProductVersions.FindAsync(id);
+            var productEdition = await _context.ProductEditions.FindAsync(id);
 
-            if (productVersion == null)
+            if (productEdition == null)
             {
                 return NotFound();
             }
 
-            return productVersion;
+            return productEdition;
         }
 
-        // PUT: api/ProductVersions/5
+        // PUT: api/ProductEditions/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProductVersion(int id, ProductVersion productVersion)
+        public async Task<IActionResult> PutProductEdition(int id, ProductEdition productEdition)
         {
-            if (id != productVersion.Id)
+            if (id != productEdition.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(productVersion).State = EntityState.Modified;
+            _context.Entry(productEdition).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace WebshopAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductVersionExists(id))
+                if (!ProductEditionExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace WebshopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/ProductVersions
+        // POST: api/ProductEditions
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<ProductVersion>> PostProductVersion(ProductVersion productVersion)
+        public async Task<ActionResult<ProductEdition>> PostProductEdition(ProductEdition productEdition)
         {
-            _context.ProductVersions.Add(productVersion);
+            _context.ProductEditions.Add(productEdition);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProductVersion", new { id = productVersion.Id }, productVersion);
+            return CreatedAtAction("GetProductEdition", new { id = productEdition.Id }, productEdition);
         }
 
-        // DELETE: api/ProductVersions/5
+        // DELETE: api/ProductEditions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ProductVersion>> DeleteProductVersion(int id)
+        public async Task<ActionResult<ProductEdition>> DeleteProductEdition(int id)
         {
-            var productVersion = await _context.ProductVersions.FindAsync(id);
-            if (productVersion == null)
+            var productEdition = await _context.ProductEditions.FindAsync(id);
+            if (productEdition == null)
             {
                 return NotFound();
             }
 
-            _context.ProductVersions.Remove(productVersion);
+            _context.ProductEditions.Remove(productEdition);
             await _context.SaveChangesAsync();
 
-            return productVersion;
+            return productEdition;
         }
 
-        private bool ProductVersionExists(int id)
+        private bool ProductEditionExists(int id)
         {
-            return _context.ProductVersions.Any(e => e.Id == id);
+            return _context.ProductEditions.Any(e => e.Id == id);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Webshop.Data
 
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Edition> Editions { get; set; }
-        public DbSet<ProductVersion> ProductVersions { get; set; }
+        public DbSet<ProductEdition> ProductEditions { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Status> Status { get; set; }

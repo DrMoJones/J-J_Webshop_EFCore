@@ -31,6 +31,8 @@
     <Compile Remove="Migrations\20200922111601_test.Designer.cs" />
     <Compile Remove="Migrations\20200922110749_init.cs" />
     <Compile Remove="Migrations\20200922110749_init.Designer.cs" />
+    <Compile Remove="Migrations\20200923092839_init.cs" />
+    <Compile Remove="Migrations\20200923092839_init.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,10 +41,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Webshop.Domain\Webshop.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

@@ -134,8 +134,8 @@ namespace Webshop.Data.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -183,8 +183,8 @@ namespace Webshop.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
@@ -196,7 +196,7 @@ namespace Webshop.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Webshop.Domain.ProductVersion", b =>
+            modelBuilder.Entity("Webshop.Domain.ProductEdition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -206,20 +206,19 @@ namespace Webshop.Data.Migrations
                     b.Property<int>("EditionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PriceMod")
-                        .HasColumnType("int");
+                    b.Property<double>("PriceMod")
+                        .HasColumnType("float");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EditionId")
-                        .IsUnique();
+                    b.HasIndex("EditionId");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductVersions");
+                    b.ToTable("ProductEditions");
                 });
 
             modelBuilder.Entity("Webshop.Domain.Status", b =>
@@ -288,11 +287,11 @@ namespace Webshop.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Webshop.Domain.ProductVersion", b =>
+            modelBuilder.Entity("Webshop.Domain.ProductEdition", b =>
                 {
                     b.HasOne("Webshop.Domain.Edition", "Editions")
-                        .WithOne("ProductVersions")
-                        .HasForeignKey("Webshop.Domain.ProductVersion", "EditionId")
+                        .WithMany()
+                        .HasForeignKey("EditionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -7,7 +7,6 @@ namespace Webshop.Domain
     public class Edition
     {
         public int Id { get; set; }
-        public string EditionType { get; set; }
-        public ProductVersion ProductVersions { get; set; }
+        public string EditionType { get; set; }        
     }
 }
