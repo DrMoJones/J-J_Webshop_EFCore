@@ -45,6 +45,21 @@ namespace Webshop.Data.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("Webshop.Domain.Edition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("EditionType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Editions");
+                });
+
             modelBuilder.Entity("Webshop.Domain.Genre", b =>
                 {
                     b.Property<int>("Id")
@@ -132,6 +147,26 @@ namespace Webshop.Data.Migrations
                     b.ToTable("OrderLines");
                 });
 
+            modelBuilder.Entity("Webshop.Domain.Picture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Pictures");
+                });
+
             modelBuilder.Entity("Webshop.Domain.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -159,6 +194,32 @@ namespace Webshop.Data.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Webshop.Domain.ProductVersion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EditionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PriceMod")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EditionId")
+                        .IsUnique();
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductVersions");
                 });
 
             modelBuilder.Entity("Webshop.Domain.Status", b =>
@@ -209,11 +270,35 @@ namespace Webshop.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Webshop.Domain.Picture", b =>
+                {
+                    b.HasOne("Webshop.Domain.Product", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Webshop.Domain.Product", b =>
                 {
                     b.HasOne("Webshop.Domain.Genre", "Genre")
                         .WithMany()
                         .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Webshop.Domain.ProductVersion", b =>
+                {
+                    b.HasOne("Webshop.Domain.Edition", "Editions")
+                        .WithOne("ProductVersions")
+                        .HasForeignKey("Webshop.Domain.ProductVersion", "EditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Webshop.Domain.Product", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
