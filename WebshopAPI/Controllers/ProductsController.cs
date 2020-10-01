@@ -32,7 +32,7 @@ namespace WebshopAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products.Include(s => s.Genre).FirstOrDefaultAsync(s => s.Id == id);
 
             if (product == null)
             {
@@ -40,6 +40,20 @@ namespace WebshopAPI.Controllers
             }
 
             return product;
+        }
+
+        [HttpGet("GetName")]
+        [Route("GetName")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductName([FromQuery(Name = "name")] string name)
+        {
+            var products = await _context.Products.Where(s => s.Name.Contains(name)).ToListAsync();
+
+            if (products == null)
+            {
+                return NotFound();
+            }
+
+            return products;
         }
 
         // PUT: api/Products/5
