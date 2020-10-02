@@ -1,11 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Webshop.Data",
-    "\\Webshop.Domain",
-    "\\WebshopAPI",
-    "\\WebshopAPI\\Controllers"
+    ""
   ],
-  "SelectedNode": "\\Webshop.Domain",
+  "SelectedNode": "\\Webshop_EFCore.sln",
   "PreviewInSolutionExplorer": false
 }
