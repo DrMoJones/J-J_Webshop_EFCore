@@ -38,6 +38,19 @@ namespace WebshopAPI.Controllers
             {
                 return NotFound();
             }
+            return login;
+        }
+
+        [HttpGet]
+        [Route("GetByEmail/{email}")]
+        public async Task<ActionResult<Login>> GetLoginByEmail(string email)
+        {
+            var login = await _context.Logins.FirstOrDefaultAsync(s => s.Email == email);
+
+            if (login == null)
+            {
+                return NotFound();
+            }
 
             return login;
         }
