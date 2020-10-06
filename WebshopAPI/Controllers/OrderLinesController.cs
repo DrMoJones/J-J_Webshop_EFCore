@@ -30,9 +30,14 @@ namespace WebshopAPI.Controllers
 
         // GET: api/OrderLines/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderLine>> GetOrderLine(int id)
+        public async Task<ActionResult<IEnumerable<OrderLine>>> GetOrderLine(int id)
         {
-            var orderLine = await _context.OrderLines.FindAsync(id);
+            var orderLine = await _context.OrderLines
+                .Where(s => s.OrderId == id)
+                .Include(s => s.Order)
+                .Include(s => s.Product)
+                .ThenInclude(s => s.Genre)
+                .ToListAsync();
 
             if (orderLine == null)
             {
