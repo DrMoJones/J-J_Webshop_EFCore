@@ -32,7 +32,7 @@ namespace WebshopAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await _context.Customers.Include(s => s.Login).FirstOrDefaultAsync(s => s.Id == id);
 
             if (customer == null)
             {
