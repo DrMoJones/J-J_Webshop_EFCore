@@ -25,7 +25,7 @@ namespace WebshopAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            return await _context.Orders.ToListAsync();
+            return await _context.Orders.Include(s => s.Customer).ThenInclude(s => s.Login).ToListAsync();
         }
 
         // GET: api/Orders/5
@@ -42,6 +42,25 @@ namespace WebshopAPI.Controllers
             return order;
         }
 
+        [HttpGet("GetAllOrders/{id}")]
+        [Route("GetAllOrders/{id}")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrdersByCustomerId(int id)
+        {
+            var order = await _context.Orders
+                .Where(l => l.CustomerId == id)
+                .Include(s => s.Customer)
+                .ThenInclude(s => s.Login)
+                .ToListAsync();
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return order;
+        }
+
+
         // PUT: api/Orders/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -53,6 +72,7 @@ namespace WebshopAPI.Controllers
                 return BadRequest();
             }
 
+            
             _context.Entry(order).State = EntityState.Modified;
 
             try
@@ -80,6 +100,7 @@ namespace WebshopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
+            order.Date = DateTime.Now;
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 

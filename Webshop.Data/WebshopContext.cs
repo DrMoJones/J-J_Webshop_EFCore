@@ -28,14 +28,16 @@ namespace Webshop.Data
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        //public WebshopContext(DbContextOptions options)
-        //{
-
-        //}
 
         public WebshopContext()
         {
 
+        }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Login>().Ignore(b => b.Password);
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
