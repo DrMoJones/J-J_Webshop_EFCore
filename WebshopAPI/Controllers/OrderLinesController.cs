@@ -34,7 +34,6 @@ namespace WebshopAPI.Controllers
         {
             var orderLine = await _context.OrderLines
                 .Where(s => s.OrderId == id)
-                .Include(s => s.Order)
                 .Include(s => s.Product)
                 .ThenInclude(s => s.Genre)
                 .ToListAsync();

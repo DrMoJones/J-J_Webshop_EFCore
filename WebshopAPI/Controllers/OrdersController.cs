@@ -25,7 +25,7 @@ namespace WebshopAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            return await _context.Orders.Include(s => s.Customer).ThenInclude(s => s.Login).ToListAsync();
+            return await _context.Orders.Include(s => s.OrderLines).Include(s => s.Customer).ThenInclude(s => s.Login).ToListAsync();
         }
 
         // GET: api/Orders/5
@@ -48,6 +48,7 @@ namespace WebshopAPI.Controllers
         {
             var order = await _context.Orders
                 .Where(l => l.CustomerId == id)
+                .Include(s => s.OrderLines)
                 .Include(s => s.Customer)
                 .ThenInclude(s => s.Login)
                 .ToListAsync();

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Webshop.Data;
 
 namespace Webshop.Data.Migrations
 {
     [DbContext(typeof(WebshopContext))]
-    partial class WebshopContextModelSnapshot : ModelSnapshot
+    [Migration("20201007112930_added-orderline-to-order")]
+    partial class addedorderlinetoorder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,7 +141,8 @@ namespace Webshop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrderId")
+                        .IsUnique();
 
                     b.HasIndex("ProductId");
 
@@ -261,9 +264,9 @@ namespace Webshop.Data.Migrations
 
             modelBuilder.Entity("Webshop.Domain.OrderLine", b =>
                 {
-                    b.HasOne("Webshop.Domain.Order", null)
-                        .WithMany("OrderLines")
-                        .HasForeignKey("OrderId")
+                    b.HasOne("Webshop.Domain.Order", "Order")
+                        .WithOne("OrderLines")
+                        .HasForeignKey("Webshop.Domain.OrderLine", "OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

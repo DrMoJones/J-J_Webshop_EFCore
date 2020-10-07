@@ -11,6 +11,7 @@ namespace Webshop.Domain
         public DateTime Date { get; set; }
         public int StatusId { get; set; }        
         public Status Status { get; set; }
+        public List<OrderLine> OrderLines { get; set; }
         public Customer Customer { get; set; }
     }
 }
