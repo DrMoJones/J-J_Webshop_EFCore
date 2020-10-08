@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,20 @@ using Webshop.Domain;
 
 namespace WebshopAPI.Controllers
 {
+    public class Cart
+    {
+        public int productId { get; set; }
+        public string name { get; set; }
+        public int price { get; set; }
+        public int amount { get; set; }
+    }
+
     [Route("api/[controller]")]
     [ApiController]
     public class OrderLinesController : ControllerBase
     {
         private readonly WebshopContext _context;
+        
 
         public OrderLinesController(WebshopContext context)
         {
@@ -82,10 +92,40 @@ namespace WebshopAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<OrderLine>> PostOrderLine(OrderLine orderLine)
+        public async Task<ActionResult<OrderLine>> PostOrderLine(List<Cart> carts)
         {
-            _context.OrderLines.Add(orderLine);
+            Order order = new Order
+            {
+                StatusId = 1,
+                CustomerId = 9,
+                Date = DateTime.Now
+            };            
+        
+            _context.Orders.Add(order);
+
             await _context.SaveChangesAsync();
+
+            var newOrder = _context.Orders.Where(s => s.Id == order.CustomerId).ToListAsync();
+
+            OrderLine orderLine;
+            for (int i = 0; i <= carts.Count; i++)
+            {
+                var product = await _context.Products.Where(s => s.Id == carts[i].productId).FirstOrDefaultAsync();
+
+                orderLine = new OrderLine
+                {
+                    OrderId = newOrder.Id,
+                    ProductId = carts[i].productId,
+                    Amount = carts[i].amount,
+                    Price = product.Price * carts[i].amount
+                };
+                _context.OrderLines.Add(orderLine);
+                await _context.SaveChangesAsync();
+
+            }
+
+            orderLine = new OrderLine();
+            
 
             return CreatedAtAction("GetOrderLine", new { id = orderLine.Id }, orderLine);
         }
