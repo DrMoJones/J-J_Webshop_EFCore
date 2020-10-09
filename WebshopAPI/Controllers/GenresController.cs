@@ -24,8 +24,7 @@ namespace WebshopAPI.Controllers
         // GET: api/Genres
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Genre>>> GetGenres()
-        {
-            
+        {           
             return await _context.Genres.ToListAsync();
         }
 

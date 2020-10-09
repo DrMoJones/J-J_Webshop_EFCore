@@ -97,7 +97,7 @@ namespace WebshopAPI.Controllers
             Order order = new Order
             {
                 StatusId = 1,
-                CustomerId = 9,
+                CustomerId = 1,
                 Date = DateTime.Now
             };            
         
