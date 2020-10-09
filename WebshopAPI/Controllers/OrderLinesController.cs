@@ -105,8 +105,6 @@ namespace WebshopAPI.Controllers
 
             await _context.SaveChangesAsync();
 
-            var newOrder = _context.Orders.Where(s => s.Id == order.CustomerId).ToListAsync();
-
             OrderLine orderLine;
             for (int i = 0; i <= carts.Count; i++)
             {
@@ -114,7 +112,7 @@ namespace WebshopAPI.Controllers
 
                 orderLine = new OrderLine
                 {
-                    OrderId = newOrder.Id,
+                    OrderId = order.Id,
                     ProductId = carts[i].productId,
                     Amount = carts[i].amount,
                     Price = product.Price * carts[i].amount
@@ -126,7 +124,6 @@ namespace WebshopAPI.Controllers
 
             orderLine = new OrderLine();
             
-
             return CreatedAtAction("GetOrderLine", new { id = orderLine.Id }, orderLine);
         }
 
